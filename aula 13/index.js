@@ -2,9 +2,12 @@ const express = require("express");
 
 const app = express();
 
+const empresa = require("./router/empresa.router");
 const port = 3000;
 
 app.use(express.json());
+
+app.use("/empresa", empresa);
 
 app.get("/", (req, res) => {
   res.send("hello world");
