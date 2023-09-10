@@ -1,12 +1,39 @@
+const empresas = [
+  {
+    id: 1,
+    nome: "empresa1",
+    numFuncinarios: 100,
+  },
+  {
+    id: 2,
+    nome: "empresa2",
+    numFuncinarios: 1200,
+  },
+
+  {
+    id: 3,
+    nome: "empresa3",
+    numFuncinarios: 5000,
+  },
+];
+
+const find = (req, res) => {
+  const id = req.params.id;
+  res.send(empresas[id]);
+};
+
 const findAllEmpresas = (req, res) => {
-  res.send("todas as empresas listadas");
+  res.send(empresas);
 };
 
 const createEmpresa = (req, res) => {
-  res.send("empresa criada com sucesso");
+  const empresa = req.body;
+  empresas.push(empresa);
+  res.send(empresas);
 };
 
 module.exports = {
+  find,
   findAllEmpresas,
   createEmpresa,
 };
