@@ -15,6 +15,7 @@ const empresas = [
     nome: "empresa3",
     numFuncinarios: 5000,
   },
+  {},
 ];
 
 const find = (req, res) => {
@@ -28,6 +29,9 @@ const findAllEmpresas = (req, res) => {
 
 const createEmpresa = (req, res) => {
   const empresa = req.body;
+  if ((req, body.nome == null)) {
+    return res.send({ message: "corpo da mensagem está vazio" });
+  }
   empresas.push(empresa);
   res.send(empresas);
 };
