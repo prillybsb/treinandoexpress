@@ -6,5 +6,6 @@ router.get("/findAll", empresa.findAllEmpresas);
 router.post("/create", empresa.createEmpresa);
 
 router.put("/update/:id", empresa.updateEmpresa);
+router.delete("/delete/:id", empresa.deleteEmpresa);
 
 module.exports = router;

@@ -115,4 +115,5 @@ module.exports = {
   findAllEmpresas,
   createEmpresa,
   updateEmpresa,
+  deleteEmpresa,
 };
