@@ -1,52 +1,40 @@
-const empresas = [
-  {
-    id: 1,
-    nome: "empresa1",
-    numFuncinarios: 100,
-  },
-  {
-    id: 2,
-    nome: "empresa2",
-    numFuncinarios: 1200,
-  },
+const Empresa = require("../model/empresa");
+const mongoose = require("mongoose");
 
-  {
-    id: 3,
-    nome: "empresa3",
-    numFuncinarios: 5000,
-  },
-  {},
-];
+const find = async (req, res) => {
+  try {
+    const id = mongoose.Types.ObjectId(req.params.id);
+    let found = false;
+    const empresa = awaitEmpresa.findById(id);
 
-const find = (req, res) => {
-  const id = req.params.id;
-  let found = false;
-
-  empresas.map(function (valor) {
-    if (valor.id == id) {
+    if (empresa != null) {
       found = true;
-      return res.send(valor);
     }
-  });
 
-  if (!found) {
-    res.status(404).send({ message: "Não foi encontrado" });
+    if (!found) {
+      return res
+        .status(404)
+        .send({ message: "Empresa não foi encontrada, tente outro ID" });
+    }
+
+    return res.status(200).send(empresa);
+  } catch (err) {
+    console.log(`erro: ${err}`);
+    return res.status(500).send("erro no servidor, tente novamente mais tarde");
   }
 };
 
-const findAllEmpresas = (req, res) => {
-  res.send(empresas);
+const findAllEmpresas = async (req, res) => {
+  return res.status(200).send(await Empresa.find());
 };
 
-const createEmpresa = (req, res) => {
+const createEmpresa = async (req, res) => {
   const empresa = req.body;
 
   if (Object.keys(empresa).length === 0) {
     return res.status(400).send({ message: "O corpo da mensagem está vazio" });
   }
-  if (!empresa.id) {
-    return res.status(400).send({ message: "O campo 'id' não foi encontrado" });
-  }
+
   if (!empresa.nome) {
     returnres
       .status(400)
@@ -59,10 +47,7 @@ const createEmpresa = (req, res) => {
       .send({ message: "O campo 'NumFuncionarios' não foi encontrado" });
   }
 
-  empresa.nacionalidade = "brasileira";
-
-  empresas.push(empresa);
-  res.status(201).send(empresas);
+  return res.status(201).send(await Empresa.create(empresa));
 };
 
 const updateEmpresa = (req, res) => {

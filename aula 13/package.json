@@ -17,6 +17,7 @@
     "request": "^2.88.2"
   },
   "devDependencies": {
+    "dotenv": "^16.3.1",
     "nodemon": "^3.0.1"
   }
 }

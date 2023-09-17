@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 function connectToDatabase() {
   mongoose
     .connect(
-      "mongodb+srv://prillybsb:<password>@cluster0.zl3ntql.mongodb.net/?retryWrites=true&w=majority",
+      `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.zl3ntql.mongodb.net/?retryWrites=true&w=majority`,
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,

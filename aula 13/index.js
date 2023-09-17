@@ -1,6 +1,12 @@
+const dotenv = require("dotenv");
 const express = require("express");
-const request = require("request");
+const connectToDatabase = require("./database/database");
+//const request = require("request");
 const app = express();
+const empresa = require("./router/empresa.router");
+
+dotenv.config();
+connectToDatabase();
 
 const port = 3000;
 
@@ -19,18 +25,6 @@ app.get("/", (req, res) => {
     }
 
     console.log("statusCode:", response && response.statusCode);
-
-    try {
-      const pokemon = JSON.parse(body);
-      res.json({
-        id: pokemon.id,
-        name: pokemon.name,
-      });
-    } catch (parseError) {
-      return res
-        .status(500)
-        .json({ error: "Erro ao analisar a resposta externa" });
-    }
   });
 });
 
