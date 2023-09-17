@@ -12,9 +12,13 @@ const createEmpresa = (empresa) => {
   return Empresa.create(empresa);
 };
 
-const updateEmpresa = (id, empresa) => {};
+const updateEmpresa = (id, empresa) => {
+  return Empresa.findByIdAndUpdate(id, empresa, { returnDocument: " after" });
+};
 
-const deleteEmpresa = (id) => {};
+const deleteEmpresa = (id) => {
+  return Empresa.findByIdAndRemove(id);
+};
 
 module.exports = {
   findByIdEmpresa,

@@ -1,11 +1,11 @@
-const Empresa = require("../model/empresa");
+const EmpresaService = require("../service/empresa.service");
 const mongoose = require("mongoose");
 
 const find = async (req, res) => {
   try {
     const id = mongoose.Types.ObjectId(req.params.id);
     let found = false;
-    const empresa = awaitEmpresa.findById(id);
+    const empresa = await EmpresaService.findByIdEmpresa(id);
 
     if (empresa != null) {
       found = true;
@@ -25,7 +25,7 @@ const find = async (req, res) => {
 };
 
 const findAllEmpresas = async (req, res) => {
-  return res.status(200).send(await Empresa.find());
+  return res.status(200).send(await EmpresaService.findByIdEmpresa());
 };
 
 const createEmpresa = async (req, res) => {
@@ -47,19 +47,20 @@ const createEmpresa = async (req, res) => {
       .send({ message: "O campo 'NumFuncionarios' não foi encontrado" });
   }
 
-  return res.status(201).send(await Empresa.create(empresa));
+  return res.status(201).send(await EmpresaService.createEmpresa(empresa));
 };
 
-const updateEmpresa = (req, res) => {
+const updateEmpresa = async (req, res) => {
   const id = req.params.id;
-  let found = false;
+  const empresa = req.body;
+  //let found = false;
 
   if (Object.keys(empresa).length === 0) {
     return res.status(400).send({ message: "O corpo da mensagem está vazio" });
   }
-  if (!empresa.id) {
-    return res.status(400).send({ message: "O campo 'id' não foi encontrado" });
-  }
+  //if (!empresa.id) {
+  //return res.status(400).send({ message: "O campo 'id' não foi encontrado" });
+  //}
   if (!empresa.nome) {
     returnres
       .status(400)
@@ -71,15 +72,7 @@ const updateEmpresa = (req, res) => {
       .status(400)
       .send({ message: "O campo 'NumFuncionarios' não foi encontrado" });
   }
-
-  empresas.map(function (valor, index) {
-    const empresa = req.body;
-    if (valor.id == id) {
-      found = true;
-      empresa[index] = empresa;
-      return res.send(empresa[index]);
-    }
-  });
+  return res.status(200).send(await EmpresaService.deleteEmpresa(id));
 };
 
 const deleteEmpresa = (req, res) => {
