@@ -87,6 +87,29 @@ app.get("/teste-token", (req, res) => {
     return res.status(401).send({ message: "Token inválido" });
   }
 });
+
+app.post("/validar", async (req, res) => {
+  const { email, token } = req.body;
+  const user = await authService.loginService(email);
+
+  if (!user) {
+    return res
+      .status(400)
+      .send({ message: "token incorreto ou expirado, tente novamente" });
+  }
+
+  if (token != user.token) {
+    return res
+      .status(400)
+      .send({ message: " token incorreto ou expirado, tente novamente" });
+  }
+
+  user.token = "";
+  await authService.updateToken(user);
+
+  res.status(200).send(user);
+});
+
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
